@@ -152,8 +152,21 @@ var deleteMetric = function(req, reply){
   }.bind(this));
 };
 
+var getBosunUrl = function(req, reply){
+  return reply(this.bosunUrl);
+};
+
 var routes = function(){
   return [
+    {
+      method: 'GET',
+      path: '/api/v1/bosun/ui/url',
+      config: {
+        description: 'Get the URL of the Bosun instance',
+        tags: ['api'],
+        handler: getBosunUrl.bind(this)
+      }
+    },
     {
       method: 'GET',
       path: '/api/v1/bosun/metrics',
@@ -250,6 +263,13 @@ var registerUi = function(){
           section: 'Bosun',
           filename: path.resolve(__dirname, 'ui/metrics.jsx'),
         },
+        {
+          route: '/bosun/ui',
+          title: 'UI',
+          name: 'BosunUI',
+          section: 'Bosun',
+          filename: path.resolve(__dirname, 'ui/bosun.jsx'),
+        },
       ],
     },
     {
@@ -269,6 +289,7 @@ var registerUi = function(){
 
 var Plugin = function(options){
   this.options = options || {};
+  this.bosunUrl = this.options.uri || this.options.url || 'http://localhost:8070/';
 };
 
 Plugin.prototype.init = function(options){
@@ -283,7 +304,7 @@ Plugin.prototype.init = function(options){
       sockets: sockets,
       store: store,
       metrics: metrics,
-      url: 'http://localhost:8070/api/put',
+      url: this.bosunUrl,
     }, config));
 
   }.bind(this));

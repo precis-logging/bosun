@@ -1,0 +1,18 @@
+{
+  "name": "precis-bosun",
+  "version": "0.0.1",
+  "description": "A forwarder for sending metrics to Bosun",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Bosun",
+    "Precis"
+  ],
+  "author": "Jeremy Darling <jeremy.darling@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "lambda-30": "0.0.4"
+  }
+}
